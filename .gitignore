@@ -1,3 +1,8 @@
+.DS_Store
+src/radical/pi/VERSION
+src/radical/pi/VERSION.git
+rp.session.*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
