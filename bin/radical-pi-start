@@ -1,0 +1,11 @@
+#!/bin/sh
+
+export PYTHONPATH=src
+
+
+export RADICAL_PILOT_DBURL=${RADICAL_PILOT_DBURL:-"mongodb://localhost/"}
+export RADICAL_LOG_LVL=DEBUG
+
+SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
+nohup "$SCRIPT_DIR/radical-pi-start.py" > radical-pi-service.log 2>&1 </dev/null &
+
