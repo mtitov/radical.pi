@@ -142,14 +142,18 @@ class PilotClient:
 
         tds = []
         for descr in descriptions:
+            tid = descr.setdefault('uid',
+                                   ru.generate_id('task.%(item_counter)06d',
+                                                  ru.ID_CUSTOM,
+                                                  ns=self._tmgr.session.uid))
             stdout = descr.setdefault('stdout', 'STDOUT')
             stderr = descr.setdefault('stderr', 'STDERR')
             descr.setdefault('output_staging', []).extend(
                 [{'source': 'task:///%s' % stdout,
-                  'target': 'client:///%s/${RP_TASK_ID}.out' % self._data_dir,
+                  'target': 'client:///%s/%s.out' % (self._data_dir, tid),
                   'action': rp.TRANSFER},
                  {'source': 'task:///%s' % stderr,
-                  'target': 'client:///%s/${RP_TASK_ID}.err' % self._data_dir,
+                  'target': 'client:///%s/%s.err' % (self._data_dir, tid),
                   'action': rp.TRANSFER}])
             tds.append(rp.TaskDescription(descr))
 
